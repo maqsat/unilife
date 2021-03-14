@@ -153,9 +153,8 @@
                                         <label  class="m-t-10" for="position">Пакет:</label>
                                         <div class="input-group">
                                             <select class="custom-select form-control required" id="package_id" name="package_id" onchange="getStatus(this)">
-                                                <option value="0">Только регистрация - ${{ env('REGISTRATION_FEE') }} / 0 PV</option>
                                                 @foreach(\App\Models\Package::where('status',1)->get() as $item)
-                                                    <option value="{{ $item->id }}" @if(old('package_id') == $item->id) selected @endif>{{ $item->title }} - ${{ $item->cost }}+${{ env('REGISTRATION_FEE') }}(${{ $item->cost+env('REGISTRATION_FEE') }}) / {{ $item->pv  }} PV</option>
+                                                    <option value="{{ $item->id }}" @if(old('package_id') == $item->id) selected @endif>{{ $item->title }} - ${{ $item->cost }} / {{ $item->pv  }} PV</option>
                                                 @endforeach
                                             </select>
                                             @if ($errors->has('package_id'))
@@ -177,8 +176,8 @@
                                                 <span class="text-danger"><small>{{ $errors->first('status_id') }}</small></span>
                                             @endif
                                         </div>
-                                        <label  class="m-t-10" for="position">Офис:</label>
-                                        <div class="input-group">
+                                        <label  class="m-t-10" for="position" style="display: none">Офис:</label>
+                                        <div class="input-group"  style="display: none">
                                             <select class="form-control form-control-line" name="office_id" id="user_offices"></select>
                                             @if ($errors->has('office_id'))
                                                 <span class="text-danger"><small>{{ $errors->first('office_id') }}</small></span>

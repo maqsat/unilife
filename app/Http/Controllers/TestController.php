@@ -60,9 +60,12 @@ class TestController extends Controller
 
     public function testerActivation()
     {
-        $user  = User::find(1867);
 
-        event(new Activation($user = $user));
+        $users = User::where('id','!=',1)->where('status',0)->get();
+
+        foreach ($users as $item){
+            event(new Activation($user = $item));
+        }
 
     }
 

@@ -134,7 +134,7 @@ class UserController extends Controller
             'sponsor_id'    => 'required',
             'position'      => 'required',
             'package_id'    => 'required',
-            'office_id'    => 'required',
+            //'office_id'    => 'required',
         ]);
 
         $checker = User::where('sponsor_id',$request->sponsor_id)->where('position',$request->position)->count();
@@ -167,7 +167,7 @@ class UserController extends Controller
             'position'      => $request->position,
             'package_id'    => $request->package_id,
             'status_id'     => $status_id,
-            'office_id'     => $request->office_id,
+            //'office_id'     => $request->office_id,
             'program_id'     =>  1,
         ]);
 

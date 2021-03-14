@@ -30,7 +30,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Регистрация</h4>
                             <div class="text-right">
-                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> ${{ round($register) }}</h1>
+                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> ${{ number_format(round($register), 0, '', ' ') }}</h1>
                             </div>
                             <span class="text-success">80%</span>
                             <div class="progress">
@@ -44,7 +44,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Апгрейд</h4>
                             <div class="text-right">
-                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> ${{ round($upgrade) }}</h1>
+                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> ${{ number_format(round($upgrade), 0, '', ' ') }}</h1>
                             </div>
                             <span class="text-success">80%</span>
                             <div class="progress">
@@ -59,7 +59,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Интернет магазин</h4>
                             <div class="text-right">
-                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> ${{ $shop }}</h1>
+                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> ${{ number_format($shop, 0, '', ' ') }}</h1>
                             </div>
                             <span class="text-inverse">10%</span>
                             <div class="progress">
@@ -79,7 +79,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Комиссионные</h4>
                             <div class="text-right">
-                                <h1 class="font-light"><sup><i class="ti-arrow-down text-danger"></i></sup> ${{ $commission }}</h1>
+                                <h1 class="font-light"><sup><i class="ti-arrow-down text-danger"></i></sup> ${{ number_format($commission, 0, '', ' ') }}</h1>
                             </div>
                             <span class="text-danger">60%</span>
                             <div class="progress">
@@ -95,7 +95,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Выведено</h4>
                             <div class="text-right">
-                                <h1 class="font-light"><sup><i class="ti-arrow-up text-danger"></i></sup> ${{ $out }}</h1>
+                                <h1 class="font-light"><sup><i class="ti-arrow-up text-danger"></i></sup> ${{ number_format($out, 0, '', ' ') }}</h1>
                             </div>
                             <span class="text-danger">25%</span>
                             <div class="progress">

@@ -27,7 +27,7 @@
 
     @stack('styles')
     <!-- You can change the theme colors from here -->
-    <link href="/monster_admin/horizontal/css/colors/green.css" id="theme" rel="stylesheet">
+<!--    <link href="/monster_admin/horizontal/css/colors/green.css" id="theme" rel="stylesheet">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

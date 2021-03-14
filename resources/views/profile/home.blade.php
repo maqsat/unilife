@@ -49,7 +49,7 @@
                                         <td>@if(!is_null($package)){{ $package->title }}(${{ $package->cost }})@else Без пакета @endif</td>
                                         <td>{{ $status->title }}</td>
                                         <td>{{ $pv_counter_all }}  PV</td>
-                                        <td>${{ $balance }}</td>
+                                        <td>${{ number_format($balance, 0, '', ' ') }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

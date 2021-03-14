@@ -1,13 +1,13 @@
 @extends('layouts.template')
 
 @section('content')
-    <section id="wrapper" class="login-register register-padding"  style="background-image:url(/nrg/bg.png);">
+    <section id="wrapper" class="login-register register-padding"  style="background-image:url();">
         <div class="row">
             <div class="col-10 offset-1">
                 <div class="card">
                     <div class="card-block wizard-content">
                         <a href="javascript:void(0)" class="text-center db">
-                            <img src="/nrg/logo_green.png" alt="Home" class="login_logo" /><br/>
+                            <img src="" alt="Home" class="login_logo" /><br/>
                         </a>
 
                         <div class="row">

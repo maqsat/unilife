@@ -178,8 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\BalanceServiceProvider::class,
         App\Providers\HierarchyServiceProvider::class,
-        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        //UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 

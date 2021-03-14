@@ -152,7 +152,7 @@ Route::get('check_mentor', 'AutoActivationController@checkMentor');
 /*
 ************************ Test Elements ***********************
  */
-Route::get('tester', 'TestController@tester');
+Route::get('tester', 'TestController@testerActivation');
 
 
 
