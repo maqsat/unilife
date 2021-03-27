@@ -23,13 +23,15 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
+//dd(bcrypt(123456789));
 Auth::routes();
 Route::post('register-validate', 'UserController@registerValidate')->name('validate');
 
 /*
 ************************ Website ***********************
  */
-Route::get('/', 'WebController@welcome');
+Route::get('/', 'HomeController@index');
+//Route::get('/', 'WebController@welcome');
 Route::get('about', 'WebController@about');
 Route::get('products', 'WebController@products');
 Route::get('cert', 'WebController@cert');
@@ -153,6 +155,8 @@ Route::get('check_mentor', 'AutoActivationController@checkMentor');
 ************************ Test Elements ***********************
  */
 Route::get('tester', 'TestController@testerActivation');
+Route::get('setbots', 'TestController@setBots');
+Route::get('auto-activation', 'TestController@testerActivation');
 
 
 

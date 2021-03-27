@@ -24,6 +24,70 @@ use Illuminate\Support\Facades\Auth;
 class TestController extends Controller
 {
 
+    public function setBots()
+    {
+        for ($i = 0; $i < 10000; $i++){
+
+            $all_users = User::whereNull('is_office_lider')->get();
+
+            foreach ($all_users as $item){
+
+                $listeners_count = User::where('sponsor_id',$item->id)->count();
+
+                if($listeners_count == 0){
+                    User::create([
+                        'name'          => "1 name ".$item->id,
+                        'number'        => "870170889".$item->id,
+                        'email'         => "1mail@com.kz".$item->id,
+                        'gender'        => 1,
+                        'birthday'      => "04.04.20",
+                        'address'       => "address",
+                        'password'      => '$2y$10$VEeAZGJdX3ge9FEP3gDXn.6bxBlluFu49n2dTVfDSvKn35uBEoCxe',
+                        'created_at'    => "2020-02-01 07:39:39",
+                        'country_id'    => 1,
+                        'city_id'       => 1,
+                        'inviter_id'    => $item->id,
+                        'sponsor_id'    => $item->id,
+                        'position'      => 1,
+                        'package_id'    => 3,
+                        'program_id'    => 1,
+                    ]);
+
+
+                    User::create([
+                        'name'          => "2 name ".$item->id,
+                        'number'        => "870170889".$item->id,
+                        'email'         => "2mail@com.kz".$item->id,
+                        'gender'        => 1,
+                        'birthday'      => "04.04.20",
+                        'address'       => "address",
+                        'password'      => '$2y$10$VEeAZGJdX3ge9FEP3gDXn.6bxBlluFu49n2dTVfDSvKn35uBEoCxe',
+                        'created_at'    => "2020-02-01 07:39:39",
+                        'country_id'    => 1,
+                        'city_id'       => 1,
+                        'inviter_id'    => $item->id,
+                        'sponsor_id'    => $item->id,
+                        'position'      => 2,
+                        'package_id'    => 3,
+                        'program_id'    => 1,
+                    ]);
+
+
+                    if($item->id == 5000) dd($item->id);
+
+                    $item->is_office_lider = 1;
+                    $item->save();
+
+
+
+                }
+
+            }
+        }
+
+
+    }
+
     public function tester()
     {
         dd(Carbon::now()->subDay(7));

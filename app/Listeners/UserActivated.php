@@ -168,9 +168,7 @@ class UserActivated
                     $next_status = Status::find($item_status->order+1);
                     $prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
 
-                    if(!is_null($left_user) && !is_null(
-
-                        )){
+                    if(!is_null($left_user) && !is_null($right_user)){
 
                         if(!is_null($next_status)){
                             if($prev_statuses_pv <= $pv){
@@ -340,9 +338,6 @@ class UserActivated
                         if(true){
                             $temp_sum = 0;
                             $sum = $to_enrollment_pv*$item_status->turnover_bonus/100*env('COURSE');//удалить
-                            echo $sum."<br>";
-                            echo $to_enrollment_pv."<br>";
-                            echo env('COURSE')."<br>";
 
                             Balance::changeBalance($item,$sum,'turnover_bonus',$id,$program->id,$package->id,$item_status->id,$to_enrollment_pv,$temp_sum);
 
