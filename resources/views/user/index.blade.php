@@ -63,9 +63,9 @@
                                     </thead>
                                     <tbody>
                                     @foreach($list as $item)
-                                        @if($item->admin && $item->role_id == 0)
+                                        {{--@if($item->admin && $item->role_id == 0)
                                             @continue
-                                        @endif
+                                        @endif--}}
                                         @php
                                             $sponsor = \App\User::find($item->sponsor_id);
                                             $inviter = \App\User::find($item->inviter_id);

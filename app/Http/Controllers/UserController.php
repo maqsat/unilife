@@ -76,7 +76,6 @@ class UserController extends Controller
             elseif (isset($request->program))
                 $list = User::whereProgramId($request->program)->orderBy('id','desc')->paginate(30);
             elseif (isset($request->upgrade_request)){
-
                 $list = User::join('orders','users.id','=','orders.user_id')
                     ->where('orders.status',11)
                     ->where('orders.type',"upgrade")

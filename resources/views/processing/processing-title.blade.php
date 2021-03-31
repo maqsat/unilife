@@ -13,7 +13,7 @@
 @elseif($item->status == 'request')
     Запрос на списание
 @elseif($item->status == 'register')
-    Регистрация
+    <span style="color: red">Регистрация</span>
 @elseif($item->status == 'out')
     Выведено
 @elseif($item->status == 'cancel')

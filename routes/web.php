@@ -122,6 +122,7 @@ Route::post('user/{id}/add_bonus','UserController@addBonusUser')->middleware("ad
 Route::get('admin/notifications', 'AdminController@notifications')->name('admin_notifications')->middleware("admin");
 Route::get('order', 'ProductController@orders');
 Route::get('overview-money', 'ProcessingController@overview')->name('overview');
+Route::get('status-money', 'ProcessingController@status')->name('status');
 Route::get('admin/reviews', 'AdminController@reviews')->name('admin_reviews')->middleware('admin');
 Route::get('admin/comments', 'AdminController@comments')->name('admin_comments')->middleware('admin');
 Route::get('admin/comment/{id}/{status}', 'AdminController@commentStatus')->name('admin_comment_status')->middleware('admin');

@@ -45,11 +45,19 @@ class UserActivated
 
         /*start check*/
         if(is_null($this_user)) dd("Пользователь не найден");
+
         $check_user_program = UserProgram::where('program_id', $program->id)
             ->where('user_id',$id)
             ->count();
         if($check_user_program != 0) dd("Пользователь уже активирован -> $id");
         /*end check*/
+
+        /*start sponsor check*/
+        $check_this_user_sponsor_id_program = UserProgram::where('program_id', $program->id)
+            ->where('user_id',$this_user->sponsor_id)
+            ->count();
+        if($check_this_user_sponsor_id_program == 0) dd("Спонсор не активирован -> $this_user->sponsor_id");
+        /*end sponsor check*/
 
         /*start init and activate*/
 
@@ -67,6 +75,7 @@ class UserActivated
 
 
         if(is_null($this_user->sponsor_id)){
+
             $sponsor_data = Hierarchy::getSponsorId($inviter->id);
             $sponsor_id = $sponsor_data[0];
             $position_data = $sponsor_data[1];
@@ -107,6 +116,14 @@ class UserActivated
             ]
         );
 
+        /*start activate sponsor binary*/
+        $sponsor_subscribers =  UserProgram::join('users','user_programs.user_id','=','users.id')
+            ->where('users.sponsor_id',$this_user->sponsor_id)
+            ->where('users.status',1)
+            ->count();
+        if($sponsor_subscribers == 2) UserProgram::whereId($this_user->sponsor_id)->update(['is_binary' => 1]);
+        /*end activate sponsor binary*/
+
         if (Auth::check())
             $author_id = Auth::user()->id;
         else
@@ -127,7 +144,7 @@ class UserActivated
 
                 $item_user_program = UserProgram::where('user_id',$item)->first();
 
-                if(!is_null($item_user_program) && $item_user_program->package_id != 0){
+                if(!is_null($item_user_program) && $item_user_program->package_id > 1){
 
                     $item_status = Status::find($item_user_program->status_id);
                     $item_package = Package::find($item_user_program->package_id);
@@ -166,11 +183,12 @@ class UserActivated
                     //if($item_user_program->package_id == 4) $pv =  $pv + 2500 + 500;
 
                     $next_status = Status::find($item_status->order+1);
-                    $prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
+
 
                     if(!is_null($left_user) && !is_null($right_user)){
 
                         if(!is_null($next_status)){
+                            $prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
                             if($prev_statuses_pv <= $pv){
                                 $all_count = 0;
                                 $left_user_count  = 0;
@@ -236,7 +254,7 @@ class UserActivated
                                 }
 
 
-                                if($all_count  >= $next_status->condition){
+                                if($all_count  >= $next_status->condition && $item_user_program->is_binary == 1){
 
                                     Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
                                     $item_user_program = UserProgram::where('user_id',$item)->first();
@@ -312,7 +330,7 @@ class UserActivated
                         $all_count = 0;
                     }
 
-                    if($all_count >= 2 && !is_null($next_status)){
+                    if($all_count >= 2 && !is_null($next_status)){//Что то здесь не то, причем то $next_status
 
                         /*start set  turnover_bonus  */
                         $credited_pv = Processing::where('status','turnover_bonus')->where('user_id',$item)->sum('pv');
@@ -354,7 +372,7 @@ class UserActivated
 
                                     if(true){//!is_null($check_user_processing)
                                         $inviter_user_program = UserProgram::where('user_id',$inviter_item)->first();
-                                        if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1){
+                                        if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1 && $inviter_user_program->is_binary == 1){
                                             $list_inviter_status = Status::find($inviter_user_program->status_id);
                                             if($list_inviter_status->depth_line >= $inviter_key+1){
                                                 $matching_bonus_persantage = 10;

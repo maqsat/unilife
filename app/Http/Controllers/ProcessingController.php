@@ -303,6 +303,11 @@ class ProcessingController extends Controller
         return view('processing.overview',compact('register','commission','out','shop', 'upgrade'));
     }
 
+    public function status()
+    {
+        return view('processing.status');
+    }
+
     public function request(Request $request)
     {
         $request->validate([

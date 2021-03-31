@@ -49,7 +49,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($list as $item)
-                                        <tr>
+                                        <tr @if($item->status == 'register') <span style="color: red"> @endif>
                                             <td class="text-center">{{ $item->id }}</td>
                                             <td>
                                                 @include('processing.processing-title')
