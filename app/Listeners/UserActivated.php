@@ -177,8 +177,8 @@ class UserActivated
                     //end check small branch definition
 
                     //start check next status conditions and move
-                    $pv = Hierarchy::pvCounterAll($item);
-                    $pv += $item_package->pv;
+                    $pv = Hierarchy::pvCounter($item,$small_branch_position);
+                    //$pv += $item_package->pv;
                     if($item_user_program->package_id == 3) $pv =  $pv + 500;
                     //if($item_user_program->package_id == 4) $pv =  $pv + 2500 + 500;
 
@@ -361,29 +361,32 @@ class UserActivated
 
 
                             /*start set  matching_bonus  */
-                            $inviter_list = $item_user_program->inviter_list;
-                            $inviter_list = explode(',',trim($inviter_list,','));
-                            $inviter_list = array_slice($inviter_list, 0, 3);
+                            if ($package_id == 3 or $package_id == 4){
+                                $inviter_list = $item_user_program->inviter_list;
+                                $inviter_list = explode(',',trim($inviter_list,','));
+                                $inviter_list = array_slice($inviter_list, 0, 3);
 
-                            foreach ($inviter_list as $inviter_key => $inviter_item){
-                                if($inviter_item != ''){
+                                foreach ($inviter_list as $inviter_key => $inviter_item){
+                                    if($inviter_item != ''){
 
-                                    $check_user_processing = Processing::where('user_id',$inviter_item)->where('status','turnover_bonus')->first();
+                                        $check_user_processing = Processing::where('user_id',$inviter_item)->where('status','turnover_bonus')->first();
 
-                                    if(true){//!is_null($check_user_processing)
-                                        $inviter_user_program = UserProgram::where('user_id',$inviter_item)->first();
-                                        if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1 && $inviter_user_program->is_binary == 1){
-                                            $list_inviter_status = Status::find($inviter_user_program->status_id);
-                                            if($list_inviter_status->depth_line >= $inviter_key+1){
-                                                $matching_bonus_persantage = 10;
-                                                if($inviter_key == 2) $matching_bonus_persantage = 5;
-                                                Balance::changeBalance($inviter_item,$sum*$matching_bonus_persantage/100,'matching_bonus',$item_user_program->user_id,$program->id,$package->id,$list_inviter_status->id,$to_enrollment_pv,0,$inviter_key+1);
+                                        if(true){//!is_null($check_user_processing)
+                                            $inviter_user_program = UserProgram::where('user_id',$inviter_item)->first();
+                                            if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1 && $inviter_user_program->is_binary == 1){
+                                                $list_inviter_status = Status::find($inviter_user_program->status_id);
+                                                if($list_inviter_status->depth_line >= $inviter_key+1){
+                                                    $matching_bonus_persantage = 10;
+                                                    if($inviter_key == 2) $matching_bonus_persantage = 5;
+                                                    Balance::changeBalance($inviter_item,$sum*$matching_bonus_persantage/100,'matching_bonus',$item_user_program->user_id,$program->id,$package->id,$list_inviter_status->id,$to_enrollment_pv,0,$inviter_key+1);
+                                                }
                                             }
                                         }
-                                    }
 
+                                    }
                                 }
                             }
+
                             /*end  set  matching_bonus  */
                         }
                         else {

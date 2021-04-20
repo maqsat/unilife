@@ -901,7 +901,6 @@ class UserController extends Controller
                     $sponsor_users_list[$key]['name'] = $name;
                 }
             }
-
         }
 
         return view('user.transfer',compact('id','users','user','sponsor_users_list','sponsor'));

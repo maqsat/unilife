@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <section id="wrapper" class="login-register login-sidebar only-login-page"   style="background-image:url();">
+    <section id="wrapper" class="login-register login-sidebar only-login-page"   style="background-image:url('unilife/bg.png');">
         <div class="login-box card p-t-30">
             <div class="card-block">
                     <form method="POST" action="{{ route('login') }}" class="form-horizontal form-material"  id="loginform" >
                         @csrf
-                        <a href="javascript:void(0)" class="text-center db"><img src="" alt="Home" /></a>
+                        <a href="javascript:void(0)" class="text-center db"><img src="unilife/logo.svg" alt="Home" /></a>
 
                         <div class="form-group m-t-40">
                             <div class="col-xs-12">

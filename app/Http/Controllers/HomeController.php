@@ -186,7 +186,7 @@ class HomeController extends Controller
             'sponsor_id'    => 'required',
             'position'      => 'required',
             'package_id'    => 'required',
-            'office_id'    => 'required',
+            //'office_id'    => 'required',
         ]);
 
         $checker = User::where('sponsor_id',$request->sponsor_id)->where('position',$request->position)->count();
@@ -440,7 +440,7 @@ class HomeController extends Controller
             $query
                 ->where('sum','!=','0')
                 ->orWhere('pv', '!=', '0');
-        })->orderBy('created_at','desc')->paginate(100);
+        })->orderBy('id','desc')->paginate(100);
 
 
         return view('profile.processing.processing', compact('list', 'balance', 'all', 'out','week'));

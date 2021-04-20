@@ -22,7 +22,7 @@
                         </a>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#checkingAccount" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Вывод на ИП, ТОО, ОО, ЧП</span>
+                        <a class="nav-link" data-toggle="tab" href="#checkingAccount" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Вывод на  Расчетный счет</span>
                         </a>
                     </li>
                     <li class="nav-item">

@@ -77,9 +77,9 @@ File: css
 }
 
 .wizard-content .wizard>.steps>ul>li.current .step {
-    border-color: #69c100 ;
+    border-color: #304786 ;
     background-color: #fff;
-    color: #69c100
+    color: #304786
 }
 
 .wizard-content .wizard>.steps>ul>li.disabled a,
@@ -96,8 +96,8 @@ File: css
 }
 
 .wizard-content .wizard>.steps>ul>li.done .step {
-    background-color: #69c100 ;
-    border-color: #69c100 ;
+    background-color: #304786 ;
+    border-color: #304786 ;
     color: #fff
 }
 
@@ -169,7 +169,7 @@ File: css
 }
 
 .wizard-content .wizard>.actions>ul>li>a {
-    background: #69c100 ;
+    background: #304786 ;
     color: #fff;
     display: block;
     padding: 7px 12px;
@@ -223,7 +223,7 @@ File: css
     top: 45px;
     width: 50%;
     height: 3px;
-    background-color: #69c100
+    background-color: #304786
 }
 
 .wizard-content .wizard.wizard-circle>.steps>ul>li.current:after,
@@ -246,18 +246,18 @@ File: css
     top: 39px;
     width: 50%;
     height: 2px;
-    background-color: #69c100
+    background-color: #304786
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current .step {
-    border: 2px solid #69c100 ;
-    color: #69c100 ;
+    border: 2px solid #304786 ;
+    color: #304786 ;
     line-height: 36px
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current .step:after,
 .wizard-content .wizard.wizard-notification>.steps>ul>li.done .step:after {
-    border-top-color: #69c100
+    border-top-color: #304786
 }
 
 .wizard-content .wizard.wizard-notification>.steps>ul>li.current:after,
@@ -330,7 +330,7 @@ File: css
     }
     .wizard-content .wizard>.steps>ul>li:last-child:after {
         content: '';
-        background-color: #69c100
+        background-color: #304786
     }
     .wizard-content .wizard.vertical>.steps {
         width: 15%
@@ -342,7 +342,7 @@ File: css
         width: 100%
     }
     .wizard-content .wizard>.steps>ul>li.current:after {
-        background-color: #69c100
+        background-color: #304786
     }
      .wizard-content .wizard.vertical>.steps>ul>li {
         display: block;

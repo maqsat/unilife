@@ -117,9 +117,9 @@
                                                 @if(Gate::allows('admin_user_processing'))
                                                 <a href="/user/{{ $item->id }}/processing" target="_blank" class="btn  btn-xs btn-info"  title="Финансы"><i class="mdi mdi-cash-multiple"></i></a>
                                                 @endif
-                                                @if(Gate::allows('admin_user_program'))
+                                                {{--@if(Gate::allows('admin_user_program'))
                                                 <a href="/user/{{ $item->id }}/program" target="_blank" class="btn  btn-xs btn-success"  title="Пакет, статус, офис"><i class="mdi mdi-account-settings-variant"></i></a>
-                                                @endif
+                                                @endif--}}
                                                 @if(Gate::allows('admin_review_add_user'))
                                                 <a href="{{ route('admin_review_add', [ 'id' => $item->id ]) }}" target="_blank" class="btn btn-xs btn-warning"  title="Добавить отзыв"><i class="mdi mdi-star"></i></a>
                                                 @endif

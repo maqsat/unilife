@@ -60,7 +60,7 @@
             </div>
 
             @if(!is_null($package))
-            <div class="row">
+            <div class="row" style="display: none">
                 <div class="col-md-6 col-xs-12">
                     <div class="card">
                         <div class="card-block timer">
@@ -99,13 +99,13 @@
                             <h6 class="card-subtitle">Партнеры будут располагаться в структуре по выбранному <code>типу размещения</code></h6>
                             <div class="button-group">
                                 <a href="/home?default_position=1">
-                                    <button type="button" class="btn @if(Auth::user()->default_position == 1) btn-info @else btn-success @endif">@if(Auth::user()->default_position == 1) <i class="fa fa-check"></i> @endifСлева</button>
+                                    <button type="button" class="btn @if(Auth::user()->default_position == 1) btn-info @else btn-danger @endif">@if(Auth::user()->default_position == 1) <i class="fa fa-check"></i> @endifСлева</button>
                                 </a>
                                 <a href="/home?default_position=0">
-                                    <button type="button" class="btn @if(Auth::user()->default_position == 0) btn-info @else btn-success @endif">@if(Auth::user()->default_position == 0) <i class="fa fa-check"></i> @endifАвтоматически</button>
+                                    <button type="button" class="btn @if(Auth::user()->default_position == 0) btn-info @else btn-danger @endif">@if(Auth::user()->default_position == 0) <i class="fa fa-check"></i> @endifАвтоматически</button>
                                 </a>
                                 <a href="/home?default_position=2">
-                                    <button type="button" class="btn @if(Auth::user()->default_position == 2) btn-info @else btn-success @endif">@if(Auth::user()->default_position == 2) <i class="fa fa-check"></i> @endifСправа</button>
+                                    <button type="button" class="btn @if(Auth::user()->default_position == 2) btn-info @else btn-danger @endif">@if(Auth::user()->default_position == 2) <i class="fa fa-check"></i> @endifСправа</button>
                                 </a>
                             </div>
                             <div class="input-group m-t-15">

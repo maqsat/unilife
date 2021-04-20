@@ -40,6 +40,15 @@ class Hierarchy {
 
     /**
      * @param $user_id
+     * @return Counter
+     */
+    public function pvCounterAll($user_id)
+    {
+        return Counter::where('user_id',$user_id)->sum('sum');
+    }
+
+    /**
+     * @param $user_id
      * @param $position
      * @return Counter
      */
@@ -48,14 +57,6 @@ class Hierarchy {
         return Counter::where('user_id',$user_id)->where('position',$position)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('sum');
     }
 
-    /**
-     * @param $user_id
-     * @return Counter
-     */
-    public function pvCounterAll($user_id)
-    {
-        return Counter::where('user_id',$user_id)->sum('sum');
-    }
 
     /**
      * @param $user_id

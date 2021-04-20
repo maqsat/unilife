@@ -48,7 +48,7 @@
                             {{--<li><a href="/rang-history">История ранга</a></li>--}}
                         </ul>
                     </li>
-                    <li>
+                    <li style="display: none">
                         <a class="has-arrow" href="#" aria-expanded="false">
                             <i class="mdi mdi-shopping"></i>
                             <span class="hide-menu">Интернет магазин</span>
@@ -61,12 +61,12 @@
                             <li><a href="/activation-store">История Повторной покупки</a></li>
                         </ul>
                     </li>
-                    <li>
+                <!--<li>
                         <a href="/programs" aria-expanded="false">
                             <i class="mdi mdi-package"></i>
                             <span class="hide-menu">Апгрейд</span>
                         </a>
-                    </li>
+                    </li>-->
                     {{--<li>
                         <a class="has-arrow" href="#" aria-expanded="false">
                             <i class="mdi mdi-account-plus"></i>

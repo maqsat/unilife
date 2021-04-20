@@ -39,16 +39,16 @@
                         @if(Gate::allows('admin_package_view'))
                         <li><a href="/package">Пакеты</a></li>
                         @endif
-                        @if(Gate::allows('admin_office_view'))
+                        {{--@if(Gate::allows('admin_office_view'))
                         <li><a href="/office">Офисы</a></li>
-                        @endif
+                        @endif--}}
                         @if(Gate::allows('admin_city_view'))
                         <li><a href="/city">Города</a></li>
                         @endif
                         @if(Gate::allows('admin_country_view'))
                         <li><a href="/country">Страны</a></li>
                         @endif
-                        @if(Gate::allows('admin_statuses_access'))
+                        {{--@if(Gate::allows('admin_statuses_access'))
                         <li><a href="#">Статусы</a></li>
                         @endif
                         @if(Gate::allows('admin_types_of_bonuses_access'))
@@ -56,7 +56,7 @@
                         @endif
                         @if(Gate::allows('admin_faq_access'))
                         <li><a href="#">FAQ</a></li>
-                        @endif
+                        @endif--}}
                     </ul>
                 </li>
                 @endif
@@ -72,6 +72,7 @@
                     <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i><span class="hide-menu">Доходы</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="/overview-money">Обзор</a></li>
+                        <li><a href="/status-money">Комиссионные по статусам</a></li>
                     </ul>
                 </li>
                 @endif
@@ -135,7 +136,7 @@
                         @if(Gate::allows('admin_progress_access'))
                         <li><a href="/progress">Лидеры</a></li>
                         @endif
-                        @if(Gate::allows('not_cash_bonuses_travel_bonus'))
+                        {{--@if(Gate::allows('not_cash_bonuses_travel_bonus'))
                         <li><a href="/not_cash_bonuses?type=travel_bonus">Happy Travel</a></li>
                         @endif
                         @if(Gate::allows('not_cash_bonuses_status_no_cash_bonus'))
@@ -143,7 +144,7 @@
                         @endif
                         @if(Gate::allows('offices_bonus_access'))
                         <li><a href="/offices_bonus">Бонус развития офисов</a></li>
-                        @endif
+                        @endif--}}
                         @if(Gate::allows('admin_notifications_access'))
                         <li><a href="{{ route('admin_notifications') }}">Действия администраторов</a></li>
                         @endif

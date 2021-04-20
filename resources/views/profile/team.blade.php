@@ -37,31 +37,29 @@
 
                         <label class="m-t-10">Дата фильтрации:</label>
                         <div class="input-group">
-                            <input type="date" name="date" class="form-control form-control-line" required>
+                            <input type="date" name="date" class="form-control form-control-line" >
                         </div>
 
                         <label  class="m-t-10" for="position">Статус  фильтрации:</label>
                         <div class="input-group">
                             <select class="custom-select form-control required" id="status_id" name="status_id" required>
                                 <option>Не указан</option>
-                                <option value="1">Участник</option>
-                                <option value="2">Партнер</option>
-                                <option value="3">Менеджер</option>
-                                <option value="4">Бронза</option>
-                                <option value="5">Серебро</option>
-                                <option value="6">Золото</option>
-                                <option value="7">Платина</option>
-                                <option value="8">Бриллиант</option>
-                                <option value="9">Бр. менеджер</option>
-                                <option value="10">Бр. директор</option>
+                                @php
+                                    $status = \App\Models\Status::all();
+                                @endphp
+
+
+                                @foreach($status as $item)
+                                    <option value="{{ $item->id }}">{{ $item->title }}</option>
+                                @endforeach
                             </select>
                         </div>
+                            <hr>
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" type="submit">Отправить</button>
+                            </span>
                     </div>
                 </div>
-                <hr>
-                <span class="input-group-btn">
-                    <button class="btn btn-info" type="submit">Отправить</button>
-                </span>
             </form>
 
             <div class="row">
