@@ -87,9 +87,10 @@ class UserUpgraded
 
             $item_user_program = UserProgram::where('user_id',$item)->first();
 
-            if(!is_null($item_user_program) && $item_user_program->package_id != 0){
+            if(!is_null($item_user_program) && $item_user_program->package_id > 1){
 
                 $item_status = Status::find($item_user_program->status_id);
+                $item_package = Package::find($item_user_program->package_id);
 
                 /*set own pv and change status*/
 
@@ -127,22 +128,24 @@ class UserUpgraded
                 //end check small branch definition
 
                 //start check next status conditions and move
-                $pv = Hierarchy::pvCounterAll($item);
+                $pv = Hierarchy::pvCounter($item,$small_branch_position);
+                //$pv += $item_package->pv;
                 if($item_user_program->package_id == 3) $pv =  $pv + 500;
                 if($item_user_program->package_id == 4) $pv =  $pv + 2500 + 500;
 
                 $next_status = Status::find($item_status->order+1);
-                $prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
+
 
                 if(!is_null($left_user) && !is_null($right_user)){
 
                     if(!is_null($next_status)){
+                        $prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
                         if($prev_statuses_pv <= $pv){
                             $all_count = 0;
                             $left_user_count  = 0;
                             $right_user_count  = 0;
                             if(!$next_status->personal){
-                                $left_user_list = UserProgram::where('list','like','%,'.$left_user->id.','.$item.',%')->where('status_id','>=',$item_status->id)->get();
+                                /*$left_user_list = UserProgram::where('list','like','%,'.$left_user->id.','.$item.',%')->where('status_id','>=',$item_status->id)->get();
 
                                 $left_user_count = 0;
                                 foreach ($left_user_list as $left_user_item){
@@ -169,7 +172,7 @@ class UserUpgraded
                                 $right_user_status = UserProgram::where('user_id',$right_user->id)->where('inviter_list','like','%,'.$item.',%')->where('status_id','>=',$item_status->id)->count();
                                 if($right_user_status > 0){
                                     $right_user_count++;
-                                }
+                                }*/
                             }
                             else{
                                 $left_user_count = UserProgram::join('users','user_programs.user_id','=','users.id')
@@ -202,7 +205,7 @@ class UserUpgraded
                             }
 
 
-                            if($all_count  >= $next_status->condition){
+                            if($all_count  >= $next_status->condition && $item_user_program->is_binary == 1){
 
                                 Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
                                 $item_user_program = UserProgram::where('user_id',$item)->first();
@@ -217,23 +220,23 @@ class UserUpgraded
                                 if($item_user_program->package_id != 1){
                                     Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
 
-                                    if ($next_status->status_no_cash_bonus){
-                                        DB::table('not_cash_bonuses')->insert([
-                                            'user_id' => $item,
-                                            'type' => 'status_no_cash_bonus',
-                                            'status_id' => $next_status->id,
-                                            'status' => 0,
-                                        ]);
-                                    }
+                                    /* if ($next_status->status_no_cash_bonus){
+                                         DB::table('not_cash_bonuses')->insert([
+                                             'user_id' => $item,
+                                             'type' => 'status_no_cash_bonus',
+                                             'status_id' => $next_status->id,
+                                             'status' => 0,
+                                         ]);
+                                     }*/
 
-                                    if ($next_status->travel_bonus){
+                                    /*if ($next_status->travel_bonus){
                                         DB::table('not_cash_bonuses')->insert([
                                             'user_id' => $item,
                                             'type' => 'travel_bonus',
                                             'status_id' => $next_status->id,
                                             'status' => 0,
                                         ]);
-                                    }
+                                    }*/
                                 }
 
 
@@ -250,7 +253,7 @@ class UserUpgraded
                     $left_user_count = UserProgram::join('users','user_programs.user_id','=','users.id')
                         ->where('list','like','%,'.$left_user->id.','.$item.',%')
                         ->where('users.inviter_id',$item)
-                        ->where('user_programs.package_id','>=',1)
+                        //->where('user_programs.package_id','>=',1)
                         ->count();
                     $left_user_status = UserProgram::where('user_id',$left_user->id)->where('inviter_list','like','%,'.$item.',%')->count();
                     if($left_user_status > 0){
@@ -260,7 +263,7 @@ class UserUpgraded
                     $right_user_count = UserProgram::join('users','user_programs.user_id','=','users.id')
                         ->where('list','like','%,'.$right_user->id.','.$item.',%')
                         ->where('users.inviter_id',$item)
-                        ->where('user_programs.package_id','>=',1)
+                        //->where('user_programs.package_id','>=',1)
                         ->count();
                     $right_user_status = UserProgram::where('user_id',$right_user->id)->where('inviter_list','like','%,'.$item.',%')->count();
                     if($right_user_status > 0){
@@ -278,7 +281,7 @@ class UserUpgraded
                     $all_count = 0;
                 }
 
-                if($all_count >= 2 && !is_null($next_status)){
+                if($all_count >= 2 && !is_null($next_status)){//Что то здесь не то, причем то $next_status
 
                     /*start set  turnover_bonus  */
                     $credited_pv = Processing::where('status','turnover_bonus')->where('user_id',$item)->sum('pv');
@@ -292,15 +295,20 @@ class UserUpgraded
 
                     $sum = $to_enrollment_pv*$item_status->turnover_bonus/100*env('COURSE');
 
-                    if($credited_sum < $item_status->week_sum_limit){
+                    /*if($credited_sum < $item_status->week_sum_limit){
                         $temp_sum = 0;
                         if($credited_sum + $sum >  $item_status->week_sum_limit){
                             $temp_sum = $item_status->week_sum_limit-$credited_sum;
                             $temp_sum = $sum - $temp_sum;
                             $sum = $sum - $temp_sum;
-                        }
+                        }*/
 
-                        Balance::changeBalance($item,$sum,'turnover_bonus',$id,$program->id,$new_package->id,$item_status->id,$to_enrollment_pv,$temp_sum);
+
+                    if(true){
+                        $temp_sum = 0;
+                        $sum = $to_enrollment_pv*$item_status->turnover_bonus/100*env('COURSE');//удалить
+
+                        Balance::changeBalance($item,$sum,'turnover_bonus',$id,$program->id,$new_package,$item_status->id,$to_enrollment_pv,$temp_sum);
 
 
                         /*start set  matching_bonus  */
@@ -313,9 +321,9 @@ class UserUpgraded
 
                                 $check_user_processing = Processing::where('user_id',$inviter_item)->where('status','turnover_bonus')->first();
 
-                                if(!is_null($check_user_processing)){
+                                if(true){//!is_null($check_user_processing)
                                     $inviter_user_program = UserProgram::where('user_id',$inviter_item)->first();
-                                    if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1){
+                                    if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1 && $inviter_user_program->package_id != 2 &&  $inviter_user_program->is_binary == 1){
                                         $list_inviter_status = Status::find($inviter_user_program->status_id);
                                         if($list_inviter_status->depth_line >= $inviter_key+1){
                                             $matching_bonus_persantage = 10;
@@ -342,7 +350,7 @@ class UserUpgraded
         $inviter_program = UserProgram::where('user_id',$inviter->id)->first();
         if(!is_null($inviter_program) && $inviter_program->package_id != 0){
             $inviter_status = Status::find($inviter_program->status_id);
-            Balance::changeBalance($inviter->id,$upgrade_pv*$inviter_status->invite_bonus/100*env('COURSE'),'invite_bonus',$id,$program->id,$new_package->id,$inviter_status->id,$new_package->pv);
+            Balance::changeBalance($inviter->id,$package_cost*$inviter_status->invite_bonus/100*env('COURSE'),'invite_bonus',$id,$program->id,$new_package->id,$inviter_status->id,$new_package->pv);
         }
         /*end set  invite_bonus  */
     }
