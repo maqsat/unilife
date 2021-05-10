@@ -724,9 +724,9 @@ class HomeController extends Controller
         $id = Auth::user()->id;
 
         $request->validate([
-            'name'          => 'required',
+            //'name'          => 'required',
             'number'        => 'required',
-            'email'         => ['required', 'string', 'email', 'max:255',"unique:users,email,$id"],
+            //'email'         => ['required', 'string', 'email', 'max:255',"unique:users,email,$id"],
             'gender'        => 'required',
             'birthday'      => 'required',
             'country_id'    => 'required',
@@ -734,6 +734,9 @@ class HomeController extends Controller
             'address'       => 'required',
             'card'          => 'required',
             'bank'          => 'required',
+        ],[
+            'required' => 'Пожалуйста, заполните это поле.',
+            'unique.exists' => 'Такие данные уже существует.'
         ]);
 
 
@@ -748,14 +751,14 @@ class HomeController extends Controller
                 ]);
             }
 
-            if ($request->email !== $user->email) {
+            /*if ($request->email !== $user->email) {
                 DB::table('user_changes')->insert([
                     'new' => $request->email,
                     'old' => $user->email,
                     'type' => 2,
                     'user_id' => Auth::user()->id,
                 ]);
-            }
+            }*/
 
             if ($request->password !== null & $request->password !== "") {
                 $password = bcrypt($request->password);
@@ -764,8 +767,8 @@ class HomeController extends Controller
             }
 
             User::whereId(Auth::user()->id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
+                //'name' => $request->name,
+                //'email' => $request->email,
                 'number' => $request->number,
                 'birthday' => $request->birthday,
                 'country_id' => $request->country_id,

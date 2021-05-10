@@ -44,25 +44,25 @@
                     <h4 class="card-title">Реквизиты и счета</h4>
                     <div class="ribbon-wrapper card">
                         <div class="ribbon ribbon-bookmark  ribbon-warning"> Реквизиты</div>
-                        <p class="ribbon-content"> ТОО «ЭнерджиМакс»</p>
-                        <p class="ribbon-content"> БИН 191140005599</p>
-                        <p class="ribbon-content"> Адрес: 014000, РК, г.Нур-Султан, Баконыр р-н, пр.Абая 45/1</p>
+                        <p class="ribbon-content"> ТОО «»</p>
+                        <p class="ribbon-content"> БИН </p>
+                        <p class="ribbon-content"> Адрес: </p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="ribbon-wrapper card">
                         <div class="ribbon ribbon-bookmark  ribbon-danger">Расчетный счет в АО «Kaspi Bank»</div>
                         <p class="ribbon-content"> БИК: CASPKZKA</p>
-                        <p class="ribbon-content"> Счет ТГ: KZ26722S000002852532</p>
-                        <p class="ribbon-content"> Счет USD: KZ21722S000002852719</p>
+                        <p class="ribbon-content"> Счет ТГ: </p>
+                        <p class="ribbon-content"> Счет USD: </p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="ribbon-wrapper card">
-                        <div class="ribbon ribbon-bookmark  ribbon-info"> Расчетный счет в «ForteBank»</div>
+                        <div class="ribbon ribbon-bookmark  ribbon-danger"> Расчетный счет в «ForteBank»</div>
                         <p class="ribbon-content"> БИК: IRTYKZKA</p>
-                        <p class="ribbon-content"> Счет ТГ: KZ0396503F0009281576</p>
-                        <p class="ribbon-content"> Счет USD: KZ7296503F0009281595</p>
+                        <p class="ribbon-content"> Счет ТГ: </p>
+                        <p class="ribbon-content"> Счет USD: </p>
                     </div>
                 </div>
             </div>

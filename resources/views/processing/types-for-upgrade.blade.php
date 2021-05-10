@@ -140,7 +140,7 @@
                                     </div>
                                     <!-- Card -->
                                 </div>--}}
-                                <div class="col-lg-2 col-md-6  img-responsive">
+                                {{--<div class="col-lg-2 col-md-6  img-responsive">
                                     <!-- Card -->
                                     <div class="card">
                                         <img class="card-img-top img-responsive" src="https://indigo24.com/img/logo.png" alt="Card image cap">
@@ -151,7 +151,7 @@
                                         </div>
                                     </div>
                                     <!-- Card -->
-                                </div>
+                                </div>--}}
                             </div>
                             <!-- Row -->
                         </div>

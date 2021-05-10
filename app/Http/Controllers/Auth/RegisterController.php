@@ -53,8 +53,8 @@ class RegisterController extends Controller
     {
         $program_id = $data['program_id'];
 
-        //$sponsor_id = $data['sponsor_id'];
-        //$position = $data['position'];
+        $sponsor_id = $data['sponsor_id'];
+        $position = $data['position'];
 
         return Validator::make($data, [
             'inviter_id' => ['required', 'string', 'max:255',"sponsor_in_program:$program_id", 'exists:users,id'],
@@ -68,8 +68,8 @@ class RegisterController extends Controller
             'address' => ['required'],
             'post_index' => ['required'],
 
-            //'sponsor_id' => ['required', 'string', 'max:255', 'exists:users,id', "sponsor_in_program:$program_id"],
-            //'position' => ['required', "is_exist_position_sponsor:$sponsor_id", "third_position:$sponsor_id"],
+            'sponsor_id' => ['required', 'string', 'max:255', 'exists:users,id', "sponsor_in_program:$program_id"],
+            'position' => ['required', "is_exist_position_sponsor:$sponsor_id"],
             //'package_id' => ['required'],
 
         ]);
@@ -93,8 +93,8 @@ class RegisterController extends Controller
             'program_id' => $data['program_id'],
             'birthday' => $data['birthday'],
             'city_id' => $data['city_id'],
-            //'sponsor_id' => $sponsor_id,
-            //'position' => $position,
+            'sponsor_id' => $data['sponsor_id'],
+            'position' => $data['position'],
             'country_id'    => $data['country_id'],
             /*'office_id'     =>  $data['office_id'],*/
             'iin' => $data['iin'],

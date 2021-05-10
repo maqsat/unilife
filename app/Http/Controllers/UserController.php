@@ -756,26 +756,38 @@ class UserController extends Controller
         $result['status'] = true;
         $program_id = $request['program_id'];
         $sponsor_id = $request['sponsor_id'];
+        $inviter_id = $request['inviter_id'];
         $result['p'] =  $request;
         $result['s'] =  $sponsor_id;
 
         if($request->step == 0){
             $validator = Validator::make($request->all(), [
                 'program_id'    => ['required','integer', 'exists:programs,id'],
+                'inviter_id'    => ['required', 'string', 'max:255',"sponsor_in_program:$program_id", 'exists:users,id'],
+                'sponsor_id'    => ['required', 'string', 'max:255',"sponsor_in_program:$program_id", "sponsor_is_on_this_inviter:$inviter_id" ,'exists:users,id'],
+                'position'      => ['required', "is_exist_position_sponsor:$sponsor_id"],
+                ],[
+                    'required' => 'Пожалуйста, заполните это поле.',
+                    'inviter_id.exists' => 'Такого инвайтера не существует.',
+                    'sponsor_is_on_this_inviter' => 'Наставник не в зоне этого спонсора',
+                    'is_exist_position_sponsor' => 'У данного наставника это позиация занята'
+                ]);
+        }
+
+        if($request->step == 1){
+            $validator = Validator::make($request->all(), [
                 'name'          => ['required', 'string', 'max:255'],
                 'number'        => ['required','min:7'],
                 'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password'      => ['required', 'string', 'min:6', 'confirmed'],
                 'gender'           => ['required', Rule::notIn([0])],//,'size:12'
                 'birthday'      => ['required'],
-                'inviter_id'    => ['required', 'string', 'max:255',"sponsor_in_program:$program_id", 'exists:users,id'],
-                ],[
-                    'required' => 'Пожалуйста, заполните это поле.',
-                    'inviter_id.exists' => 'Такого инвайтера не существует.',
-                ]);
+            ],[
+                'required' => 'Пожалуйста, заполните это поле.',
+            ]);
         }
 
-        if($request->step == 1){
+        if($request->step == 2){
             $validator = Validator::make($request->all(), [
                 'city_id'       => ['required', Rule::notIn([0])],
                /* 'office_id'       => ['required', Rule::notIn([0]), Rule::notIn([-1])],*/
@@ -787,14 +799,14 @@ class UserController extends Controller
         }
 
 
-        if($request->step == 2){
+        if($request->step == 3){
             $validator = Validator::make($request->all(), [
                 'address'       => ['required'],
                 'post_index'       => ['required'],
             ]);
         }
 
-        if($request->step == 3){
+        if($request->step == 4){
             /*$validator = Validator::make($request->all(), [
                 'package_id'       => ['required'],
             ]);*/
@@ -1315,9 +1327,11 @@ class UserController extends Controller
 
     //Обновляем никнейм и фото юзера
     public function updateprofile(Request $request){
+        
         $validator = Validator::make($request->all(),
             ['nickname' => 'unique:users']
         );
+
         if ($validator->fails()) {
             $messages = $validator->errors();
             $error = $messages->all();

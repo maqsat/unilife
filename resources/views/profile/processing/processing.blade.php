@@ -49,13 +49,18 @@
                                 </thead>
                                 <tbody>
                                 @foreach($list as $item)
-                                        <tr @if($item->status == 'register') <span style="color: red"> @endif>
+                                        <tr @if($item->status == 'register'
+                                                or $item->status == 'cancel'  or $item->status == 'out' )
+                                                style="color: #f62d51"
+                                            @else
+                                                style="color: #5cb85c"
+                                            @endif>
                                             <td class="text-center">{{ $item->id }}</td>
                                             <td>
                                                 @include('processing.processing-title')
                                             </td>
-                                            <td><span class="text-success">{{ round($item->sum,2) }} $</span></td>
-                                            <td><span class="text-success">{{ $item->pv}} PV</span></td>
+                                            <td>{{ round($item->sum,2) }} $</td>
+                                            <td>{{ $item->pv}} PV</td>
                                             <?php
                                                 $in_user = \App\User::find($item->in_user)
                                             ?>

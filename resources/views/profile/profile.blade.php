@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12">{{ __('app.name') }}</label>
                                             <div class="col-md-12">
-                                                <input type="text" value="{{ Auth::user()->name }}" name="name" class="form-control form-control-line">
+                                                <input type="text" value="{{ old('name',Auth::user()->name) }}" name="name" class="form-control form-control-line" disabled>
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger"><small>{{ $errors->first('name') }}</small></span>
                                                 @endif
@@ -84,7 +84,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12">{{ __('app.email') }}</label>
                                             <div class="col-md-12">
-                                                <input type="email" value="{{ Auth::user()->email }}" name="email" class="form-control form-control-line">
+                                                <input type="email" value="{{ Auth::user()->email }}" name="email" class="form-control form-control-line" disabled>
                                                 @if ($errors->has('email'))
                                                     <span class="text-danger"><small>{{ $errors->first('email') }}</small></span>
                                                 @endif

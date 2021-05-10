@@ -14,21 +14,42 @@
                             <div class="col-12">
                                 <form  class="validation-wizard wizard-circle">
                                     <!-- Step 1 -->
-                                    <h6>Персональный данные</h6>
+                                    <h6>О дистрибьюторе</h6>
                                     <section>
                                         <div class="row">
-                                            <div class="col-md-5  offset-1">
+                                            <div class="col-md-8  offset-md-2">
                                                 <input type="hidden" name="program_id" id="program_id" value="1">
                                                 <div class="form-group">
                                                     <?php
-                                                    if(isset($_GET['inviter_id'])) $user = \App\User::find($_GET['inviter_id']);
-                                                    else $user = \App\User::find(1)
+                                                        if(isset($_GET['inviter_id'])) $user = \App\User::find($_GET['inviter_id']);
+                                                        else $user = \App\User::find(1)
                                                     ?>
-                                                    <label for="inviter_id">Ваш менеджер:</label>{{--{{ app('request')->input('inviter_id') }}--}}
+                                                    <label for="inviter_id">Для обработки вашего заказа, введите, пожалуйста, ID спонсора(дистрибьютора) :</label>{{--{{ app('request')->input('inviter_id') }}--}}
                                                     <input type="text" class="form-control required" value="{{ $user->name }} - {{ $user->number }}" disabled>
                                                     <input type="hidden" class="form-control required" id="inviter_id" name="inviter_id" value="{{ $user->id }}">
                                                     <div class="error-message"></div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="sponsor_id">Для обработки вашего заказа, введите, пожалуйста, ID наставника(уточните у спонсора):</label>
+                                                    <input type="number" class="form-control required"  id="sponsor_id" name="sponsor_id" value="{{ app('request')->input('sponsor_id') }}">
+                                                    <div class="error-message"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="position">Позиция :</label>
+                                                    <select class="custom-select form-control required" id="position" name="position">
+                                                        <option value="1">Слева</option>
+                                                        <option value="2">Справа</option>
+                                                    </select>
+                                                    <div class="error-message"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 2 -->
+                                    <h6>Персональный данные</h6>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-5  offset-1">
                                                 <div class="form-group">
                                                     <label for="name">ФИО :</label>
                                                     <input type="text" class="form-control required" id="name" name="name">
@@ -80,7 +101,7 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <!-- Step 2 -->
+                                    <!-- Step 3 -->
                                     <h6>Структура</h6>
                                     <section>
                                         <div class="row">
@@ -124,7 +145,7 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <!-- Step 3 -->
+                                    <!-- Step 4 -->
                                     <h6>Доставка</h6>
                                     <section>
                                         <div class="row">
@@ -142,7 +163,7 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <!-- Step 4 -->
+                                    <!-- Step 5 -->
                                     <h6>Оплата</h6>
                                     <section>
                                         <div class="row">
@@ -191,7 +212,7 @@
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', '/register-validate', false);
 
-                    var params = 'name='+document.getElementById('name').value+'&program_id='+document.getElementById('program_id').value+'&inviter_id='+document.getElementById('inviter_id').value+'&number='+document.getElementById('number').value+'&email='+document.getElementById('email').value+'&gender='+document.getElementById("gender").selectedIndex+'&birthday='+document.getElementById('birthday').value+'&password='+document.getElementById('password').value+'&password_confirmation='+document.getElementById('password_confirmation').value+'&iin='+document.getElementById('iin').value+'&step='+currentIndex;
+                    var params = 'program_id='+document.getElementById('program_id').value+'&inviter_id='+document.getElementById('inviter_id').value+'&sponsor_id='+document.getElementById('sponsor_id').value+'&position='+document.getElementById('position').value+'&step='+currentIndex;
 
                     console.log(params);
                     xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'));
@@ -216,6 +237,34 @@
 
                 }
                 if(currentIndex == 1){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/register-validate', false);
+
+                    var params = 'name='+document.getElementById('name').value+'&number='+document.getElementById('number').value+'&email='+document.getElementById('email').value+'&gender='+document.getElementById("gender").selectedIndex+'&birthday='+document.getElementById('birthday').value+'&password='+document.getElementById('password').value+'&password_confirmation='+document.getElementById('password_confirmation').value+'&iin='+document.getElementById('iin').value+'&step='+currentIndex;
+
+                    console.log(params);
+                    xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'));
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                    xhr.send(params);
+                    if (xhr.status != 200) {
+                        alert( xhr.status + ': ' + xhr.statusText );
+                    }
+                    else {
+                        var result=JSON.parse(xhr.responseText);
+                        console.log( JSON.parse(xhr.responseText) );
+                        if(result["status"] == false){
+                            for (var key in result.error_list) {
+                                $('#' + key).addClass('error');
+                                $('#' + key).closest('.form-group').find('.error-message').html('<label id="inviter_id-error" class="text-danger" for="inviter_id">' + result.error_list[key][0] + '</label>');
+                            }
+                            return false;
+                        }
+                        return true;
+                    }
+
+                }
+                if(currentIndex == 2){
 
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', '/register-validate', false);
@@ -245,7 +294,7 @@
                         return true;
                     }
                 }
-                if(currentIndex == 2){
+                if(currentIndex == 3){
 
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', '/register-validate', false);
@@ -270,7 +319,7 @@
                         return true;
                     }
                 }
-                if(currentIndex == 3){
+                if(currentIndex == 4){
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', '/register-validate', false);
                     var params = 'step='+currentIndex;
@@ -313,6 +362,8 @@
                         password_confirmation: document.getElementById('password_confirmation').value,
                         program_id: document.getElementById('program_id').value,
                         inviter_id: document.getElementById('inviter_id').value,
+                        sponsor_id: document.getElementById('sponsor_id').value,
+                        position: document.getElementById('position').value,
                         terms: document.getElementById('terms').value,
                         city_id: document.getElementById('city_id').value,
                         /*office_id: document.getElementById('office_id').value,*/

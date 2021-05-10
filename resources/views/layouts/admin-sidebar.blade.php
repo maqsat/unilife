@@ -81,7 +81,7 @@
                     <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-export"></i><span class="hide-menu">Процессинг</span></a>
                     <ul aria-expanded="false" class="collapse">
                         @if(Gate::allows('admin_processing_view'))
-                            <li><a href="/processing">Вся движения</a></li>
+                            <li><a href="/processing">Все движение</a></li>
                             @if(Gate::allows('admin_processing_status_out'))
                             <li><a href="/processing?status=out">Выведено</a></li>
                             @endif

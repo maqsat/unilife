@@ -196,6 +196,10 @@ input.error {
     margin-bottom: 0;
 }
 
+.sidebar-nav ul li a {
+    font-weight: 450;
+}
+
 @media (max-width: 767px)
 {
     .dark-logo {
