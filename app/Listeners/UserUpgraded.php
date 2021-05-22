@@ -131,7 +131,7 @@ class UserUpgraded
                 $pv = Hierarchy::pvCounter($item,$small_branch_position);
                 //$pv += $item_package->pv;
                 if($item_user_program->package_id == 3) $pv =  $pv + 500;
-                if($item_user_program->package_id == 4) $pv =  $pv + 2500 + 500;
+                if($item_user_program->package_id == 4) $pv =  $pv + 500;
 
                 $next_status = Status::find($item_status->order+1);
 
@@ -350,7 +350,8 @@ class UserUpgraded
         $inviter_program = UserProgram::where('user_id',$inviter->id)->first();
         if(!is_null($inviter_program) && $inviter_program->package_id != 0){
             $inviter_status = Status::find($inviter_program->status_id);
-            Balance::changeBalance($inviter->id,$package_cost*$inviter_status->invite_bonus/100*env('COURSE'),'invite_bonus',$id,$program->id,$new_package->id,$inviter_status->id,$new_package->pv);
+            $inviter_package = Package::where('id',$inviter_program->package_id)->first();
+            Balance::changeBalance($inviter->id,$package_cost*$inviter_package->invite_bonus/100*env('COURSE'),'invite_bonus',$id,$program->id,$new_package->id,$inviter_status->id,$new_package->pv);
         }
         /*end set  invite_bonus  */
     }

@@ -42,21 +42,29 @@
                             </div>
                         </div>
                 </form>
-                <form class="form-horizontal" id="recoverform" action="index.html">
+
+                <form method="POST" action="{{ route('password.email') }}" id="recoverform">
+                    @csrf
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <h3>Recover Password</h3>
-                            <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+                            <h3>Сброс пароля</h3>
+                            <p class="text-muted">Введите свой адрес электронной почты, и вам будут отправлены инструкции! </p>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" placeholder="Email">
+                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
+
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
+                            <button class="btn btn-success btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
                         </div>
                     </div>
                 </form>

@@ -30,7 +30,7 @@
                         <div class="card-block">
                             <h4 class="card-title">Регистрация</h4>
                             <div class="text-right">
-                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> $10 000 000</h1>{{--{{ number_format(round($register), 0, '', ' ') }}--}}
+                                <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup> {{ number_format(round($register), 0, '', ' ') }}</h1>
                             </div>
                             <span class="text-success">80%</span>
                             <div class="progress">

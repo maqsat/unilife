@@ -84,8 +84,8 @@
                                             @if(Gate::allows('admin_column_pv'))
                                             <td>
                                                 @if($item->status == 1)
-                                                <b>Слева</b>: {{ Hierarchy::pvCounter($item->id,1) }}<br>
-                                                <b>Справа</b>: {{ Hierarchy::pvCounter($item->id,2) }}
+                                                <b>Слева</b>: {{ Hierarchy::pvCounter($item->id,1) }}PV | {{ Hierarchy::userCount($item->user_id,1) }}<i class="mdi mdi-account"></i><br>
+                                                <b>Справа</b>: {{ Hierarchy::pvCounter($item->id,2) }}PV | {{ Hierarchy::userCount($item->user_id,2) }}<i class="mdi mdi-account"></i>
                                                 @endif
                                             </td>
                                             @endif

@@ -89,6 +89,8 @@ class HomeController extends Controller
                 ->where('user_programs.user_id',$user->id)
                 ->select(['statuses.*'])
                 ->first();
+            $next_status = Status::find($status->order+1);
+            $percentage = $pv_counter_all*100/$next_status->pv;
 
             $not_cash_bonuses = DB::table('not_cash_bonuses')->where('user_id', $user->id)->where('status',0)->get();
 
@@ -130,7 +132,7 @@ class HomeController extends Controller
                 $revitalization_date = Carbon::now()->addMonth(1)->day($registered_day)->format('M d, Y')." 00:00:00";
             }
 
-            return view('profile.home', compact('user', 'invite_list', 'pv_counter_all', 'balance', 'out_balance', 'status', 'list', 'package','pv_counter_left','pv_counter_right','not_cash_bonuses','quickstart_date','revitalization_date','display_day'));
+            return view('profile.home', compact('user', 'invite_list', 'pv_counter_all', 'balance', 'out_balance', 'status', 'list', 'package','pv_counter_left','pv_counter_right','not_cash_bonuses','quickstart_date','revitalization_date','display_day','percentage'));
         }
         else{
             $orders = Order::where('user_id',Auth::user()->id)->where('type','register')->where('payment','manual')->orderBy('id','desc')->first();
@@ -802,7 +804,7 @@ class HomeController extends Controller
 
     public function programs()
     {
-        $orders = Order::where('user_id',Auth::user()->id)->where('type','upgrade')->where('status','!=',4)->orderBy('id','desc')->first();
+        $orders = Order::where('user_id',Auth::user()->id)->where('type','upgrade')->where('payment','manual')->where('status','!=',4)->orderBy('id','desc')->first();
 
         $user_program = UserProgram::where('user_id',Auth::user()->id)->first();
 

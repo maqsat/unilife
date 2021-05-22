@@ -7,7 +7,15 @@
                 <li class="nav-small-cap">Меню администратора</li>
                 @if(Gate::allows('admin_menu_item_users'))
                 <li>
-                    <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Пользователи</span></a>
+                    <a class="has-arrow" href="#" aria-expanded="false">
+                        <i class="mdi mdi-account"></i><span class="hide-menu">Пользователи</span>
+                        @if(\App\User::whereNotNull('program_id')->whereStatus('0')->count() > 0)
+                        <div class="notify">
+                            <span class="heartbit"></span>
+                            <span class="point"></span>
+                        </div>
+                        @endif
+                    </a>
                     <ul aria-expanded="false" class="collapse">
                         @if(Gate::allows('admin_user_view'))
                         <li><a href="/user?non_activate=1">Неактивированные</a></li>
@@ -81,12 +89,12 @@
                     <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-export"></i><span class="hide-menu">Процессинг</span></a>
                     <ul aria-expanded="false" class="collapse">
                         @if(Gate::allows('admin_processing_view'))
-                            <li><a href="/processing">Все движение</a></li>
+                            <li><a href="/processing">Все движения</a></li>
                             @if(Gate::allows('admin_processing_status_out'))
                             <li><a href="/processing?status=out">Выведено</a></li>
                             @endif
                             @if(Gate::allows('admin_processing_status_step'))
-                            <li><a href="/processing?status=step">Комиссионние</a></li>
+                            <li><a href="/processing?status=step">Комиссионные</a></li>
                             @endif
                             @if(Gate::allows('admin_processing_status_request'))
                             <li><a href="/processing?status=request">Запросы на вывод(Ручная)</a></li>

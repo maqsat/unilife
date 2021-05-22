@@ -25,6 +25,101 @@
                     @endif
                 @endforeach
 
+            <!-- Row -->
+            <div class="row">
+                <!-- Column -->
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <div class="card"> <img class="card-img" src="/monster_admin/assets/images/background/socialbg.jpg" alt="Card image">
+                        <div class="card-img-overlay card-inverse social-profile d-flex ">
+                            <div class="align-self-center"> <img src="{{Auth::user()->photo}}" alt="user" class="img-circle" width="100" height="100">
+                                <h4 class="card-title">{{ $user->name }}</h4>
+                                <h6 class="card-subtitle">{{ $user->email }}</h6>
+                                <p class="text-white">Здоровье это сила жизни!<br> Здоровый образ жизни - образ жизни отдельного человека с целью профилактики болезней и укрепления здоровья.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <div class="col-lg-8 col-xlg-9 col-md-7">
+                    <div class="card">
+                        <div class="card-block">
+                            <h3 class="card-title">Ваши достижения</h3>
+                            <div class="table-responsive">
+                                <table class="table m-b-0  m-t-30 no-border">
+                                    <tbody>
+                                    <tr>
+                                        <td style="width:90px;"><img src="/monster_admin/assets/images/browser/sketch.jpg" alt="sketch" /></td>
+                                        <td style="width:200px;">
+                                            <h4 class="card-title">{{ $status->title }}</h4>
+                                            <h6 class="card-subtitle">Ваш статус</h6></td>
+                                        <td class="vm">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning active progress-bar-striped" role="progressbar" style="width: {{ round($percentage) }}%; height:14px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ round($percentage) }}%</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <hr> </div>
+                        <div class="card-block">
+                            <div class="row">
+                                <!-- Column -->
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="card card-inverse card-primary">
+                                        <div class="card-block">
+                                            <div class="d-flex">
+                                                <div class="m-r-20 align-self-center">
+                                                    <h1 class="text-white"><i class="ti-pie-chart"></i></h1>
+                                                </div>
+                                                <div>
+                                                    <h3 class="card-title">Левая ветка PV</h3>
+                                                    <h6 class="card-subtitle">За все время</h6> </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 align-self-center">
+                                                    <span class="display-6 text-white">{{ $pv_counter_left }}</span>
+                                                </div>
+                                                <div class="col-8 align-self-center">
+                                                    <div class="usage chartist-chart" style="height:120px"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Column -->
+                                <!-- Column -->
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="card card-inverse card-danger">
+                                        <div class="card-block">
+                                            <div class="d-flex">
+                                                <div class="m-r-20 align-self-center">
+                                                    <h1 class="text-white"><i class="ti-pie-chart"></i></h1>
+                                                </div>
+                                                <div>
+                                                    <h3 class="card-title">Правая ветка PV</h3>
+                                                    <h6 class="card-subtitle">За все время</h6> </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 align-self-center">
+                                                    <span class="display-6 text-white">{{ $pv_counter_right }}</span>
+                                                </div>
+                                                <div class="col-8  text-right">
+                                                    <div class="spark-count" style="height:120px"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- Column -->
                 <div class="col-lg-12 col-md-12">
@@ -37,6 +132,7 @@
                                         <th colspan="2">Информация</th>
                                         <th>Пакет</th>
                                         <th>Статус</th>
+                                        <th>Ваш ID</th>
                                         <th>Товарооборот</th>
                                         <th>Баланс</th>
                                     </tr>
@@ -48,6 +144,7 @@
                                             <h6>{{ $user->name }}</h6><small class="text-muted">{{ $user->email }}</small></td>
                                         <td>@if(!is_null($package)){{ $package->title }}(${{ $package->cost }})@else Без пакета @endif</td>
                                         <td>{{ $status->title }}</td>
+                                        <td>{{Auth::user()->id_number}}</td>
                                         <td>{{ $pv_counter_all }}  PV</td>
                                         <td>${{ number_format($balance, 0, '', ' ') }}</td>
                                     </tr>
@@ -96,8 +193,8 @@
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Реферальная ссылка</h4>
-                            <h6 class="card-subtitle">Партнеры будут располагаться в структуре по выбранному <code>типу размещения</code></h6>
-                            <div class="button-group">
+                            <h6 class="card-subtitle" style="display: none">Партнеры будут располагаться в структуре по выбранному <code>типу размещения</code></h6>
+                            <div class="button-group" style="display: none">
                                 <a href="/home?default_position=1">
                                     <button type="button" class="btn @if(Auth::user()->default_position == 1) btn-info @else btn-danger @endif">@if(Auth::user()->default_position == 1) <i class="fa fa-check"></i> @endifСлева</button>
                                 </a>
@@ -251,6 +348,10 @@
 
 @push('styles')
     <link href="/monster_admin/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/monster_admin/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="/monster_admin/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="/monster_admin/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="/monster_admin/assets/plugins/css-chart/css-chart.css" rel="stylesheet">
 @endpush
 
 @push('scripts')
@@ -258,6 +359,8 @@
     <script src="/monster_admin/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/monster_admin/main/js/dashboard1.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
+
+
     @if (session('status') || session('success'))
 
         <script src="/monster_admin/main/js/toastr.js"></script>

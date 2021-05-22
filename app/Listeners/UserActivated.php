@@ -10,6 +10,8 @@ use App\Models\Status;
 use App\Models\UserProgram;
 use App\Models\Notification;
 use App\Models\Program;
+use App\Models\Country;
+use App\Models\City;
 use App\Facades\Balance;
 use App\Facades\Hierarchy;
 use App\Events\Activation;
@@ -100,7 +102,26 @@ class UserActivated
         $list = Hierarchy::getSponsorsList($event->user->id,'').',';
         $inviter_list = Hierarchy::getInviterList($event->user->id,'').',';
 
-        User::whereId($event->user->id)->update(['status' => 1]);
+
+        $country_short_name = 'KZ';
+        $city_code = '1';
+        $user_country = Country::where('id',Auth::user()->country_id)->first();
+        $user_city = City::where('id',Auth::user()->city_id)->first();
+
+        if(!is_null($user_country)){
+            $country_short_name = $user_country->short;
+        }
+
+        if(!is_null($user_city)){
+            $city_code = $user_city->short;
+        }
+
+        $id_number = $country_short_name."00".$city_code.date('Ymd').Auth::user()->id;
+
+        User::whereId($event->user->id)->update([
+            'status' => 1,
+            'id_number' => $id_number
+        ]);
 
         /*set register sum */
         Balance::changeBalance($id,$package_cost,'register',$event->user->id,$event->user->program_id,$package_id,0);
@@ -180,7 +201,7 @@ class UserActivated
                     $pv = Hierarchy::pvCounter($item,$small_branch_position);
                     //$pv += $item_package->pv;
                     if($item_user_program->package_id == 3) $pv =  $pv + 500;
-                    //if($item_user_program->package_id == 4) $pv =  $pv + 2500 + 500;
+                    if($item_user_program->package_id == 4) $pv =  $pv + 500;
 
                     $next_status = Status::find($item_status->order+1);
 
@@ -398,9 +419,11 @@ class UserActivated
 
             /*start set  invite_bonus  */
             $inviter_program = UserProgram::where('user_id',$inviter->id)->first();
+
             if(!is_null($inviter_program) && $inviter_program->package_id != 0){
                 $inviter_status = Status::find($inviter_program->status_id);
-                Balance::changeBalance($inviter->id,$package->cost*$package->invite_bonus/100,'invite_bonus',$id,$program->id,$package->id,$inviter_status->id,$package->pv);
+                $inviter_package = Package::where('id',$inviter_program->package_id)->first();
+                Balance::changeBalance($inviter->id,$package->cost*$inviter_package->invite_bonus/100,'invite_bonus',$id,$program->id,$package->id,$inviter_status->id,$package->pv);
             }
             /*end set  invite_bonus  */
         }

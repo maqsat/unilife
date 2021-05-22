@@ -200,6 +200,16 @@ input.error {
     font-weight: 450;
 }
 
+
+.bg-success-custom {
+    background-color: #5cb85c !important;
+}
+
+.text-info-custom {
+    color: #5cb85c !important;
+}
+
+
 @media (max-width: 767px)
 {
     .dark-logo {

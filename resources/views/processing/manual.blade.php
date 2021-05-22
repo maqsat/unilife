@@ -38,33 +38,32 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="card-title">Реквизиты и счета</h4>
                     <div class="ribbon-wrapper card">
                         <div class="ribbon ribbon-bookmark  ribbon-warning"> Реквизиты</div>
-                        <p class="ribbon-content"> ТОО «»</p>
-                        <p class="ribbon-content"> БИН </p>
-                        <p class="ribbon-content"> Адрес: </p>
+                        <p class="ribbon-content"> ТОО «UniLife Group»</p>
+                        <p class="ribbon-content"> БИН 210440010778</p>
+                        <p class="ribbon-content"> Адрес: РК, г.Алматы, проспект Жибке Жолы 106, офис 1</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="ribbon-wrapper card">
-                        <div class="ribbon ribbon-bookmark  ribbon-danger">Расчетный счет в АО «Kaspi Bank»</div>
-                        <p class="ribbon-content"> БИК: CASPKZKA</p>
-                        <p class="ribbon-content"> Счет ТГ: </p>
-                        <p class="ribbon-content"> Счет USD: </p>
+                        <div class="ribbon ribbon-bookmark  ribbon-danger">Расчетный счет в АО «Альфа-Банк»</div>
+                        <p class="ribbon-content"> БИК: ALFAKZKA</p>
+                        <p class="ribbon-content"> Счет ТГ: KZ369470398993479303</p>
                     </div>
                 </div>
-                <div class="col-md-6">
+                {{--<div class="col-md-6">
                     <div class="ribbon-wrapper card">
                         <div class="ribbon ribbon-bookmark  ribbon-danger"> Расчетный счет в «ForteBank»</div>
                         <p class="ribbon-content"> БИК: IRTYKZKA</p>
                         <p class="ribbon-content"> Счет ТГ: </p>
                         <p class="ribbon-content"> Счет USD: </p>
                     </div>
-                </div>
+                </div>--}}
             </div>
             <!-- ============================================================== -->
             <!-- End PAge Content -->
