@@ -79,7 +79,8 @@
                                             <td>{{ $item->name }}</td>
                                             <td>
                                                 <b>Наставник</b>: {{ is_null($sponsor) ? '' : $sponsor->name }}<br>
-                                                <b>Спонсор</b>: {{ is_null($inviter) ? '' : $inviter->name }}
+                                                <b>Спонсор</b>: {{ is_null($inviter) ? '' : $inviter->name }}<br>
+                                                <b>ID</b>: {{ $item->id_number  }}
                                             </td>
                                             @if(Gate::allows('admin_column_pv'))
                                             <td>

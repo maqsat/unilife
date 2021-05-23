@@ -1327,7 +1327,7 @@ class UserController extends Controller
 
     //Обновляем никнейм и фото юзера
     public function updateprofile(Request $request){
-        
+
         $validator = Validator::make($request->all(),
             ['nickname' => 'unique:users']
         );

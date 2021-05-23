@@ -22,7 +22,7 @@ use App\Models\UserProgram;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-
+//dd(date('Ymd'));
 //dd(bcrypt(123456789));
 Auth::routes();
 Route::post('register-validate', 'UserController@registerValidate')->name('validate');

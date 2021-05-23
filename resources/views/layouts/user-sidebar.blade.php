@@ -48,7 +48,7 @@
                             {{--<li><a href="/rang-history">История ранга</a></li>--}}
                         </ul>
                     </li>
-                    <li style="display: none">
+                    <li>
                         <a class="has-arrow" href="#" aria-expanded="false">
                             <i class="mdi mdi-shopping"></i>
                             <span class="hide-menu">Интернет магазин</span>

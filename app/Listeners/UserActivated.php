@@ -105,8 +105,8 @@ class UserActivated
 
         $country_short_name = 'KZ';
         $city_code = '1';
-        $user_country = Country::where('id',Auth::user()->country_id)->first();
-        $user_city = City::where('id',Auth::user()->city_id)->first();
+        $user_country = Country::where('id',$this_user->country_id)->first();
+        $user_city = City::where('id',$this_user->city_id)->first();
 
         if(!is_null($user_country)){
             $country_short_name = $user_country->short;
@@ -116,7 +116,7 @@ class UserActivated
             $city_code = $user_city->short;
         }
 
-        $id_number = $country_short_name."00".$city_code.date('Ymd').Auth::user()->id;
+        $id_number = $country_short_name."00".$city_code.date('Ymd').$this_user->id;
 
         User::whereId($event->user->id)->update([
             'status' => 1,
