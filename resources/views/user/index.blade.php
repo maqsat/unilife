@@ -111,7 +111,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
-                                            <td>{{ Balance::getBalance($item->id) }}$</td>
+                                            <td>{{ number_format(Balance::getBalance($item->id), 0, '', ' ') }}</td>
                                             <td>{{ is_null($package) ? '' : $package->title }}</td>
                                             @if(Gate::allows('admin_actions_user'))
                                             <td class="actions">

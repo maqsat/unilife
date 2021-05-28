@@ -18,7 +18,7 @@
                                     <div class="card">
                                         <div class="card-block">
                                             <h4 class="card-title">Оплатить с основного баланса - ${{ $balance }}</h4>
-                                            <p class="card-text">Баллы распределяются в бинар</p>
+                                            <p class="card-text">Баллы распределяются по активационному бонусу</p>
                                             <a href="/pay-prepare?type=balance&@if(!is_null($basket))basket={{ $basket->id }} @endif" class="btn btn-info m-t-10">Оплатить ${{ $all_cost }}</a>
                                         </div>
                                     </div>
@@ -29,7 +29,7 @@
                                     <div class="card">
                                         <div class="card-block">
                                             <h4 class="card-title">Оплатить с баланса повторной покупки - ${{ $revitalization }}</h4>
-                                            <p class="card-text">Баллы НЕ распределяются в бинар</p>
+                                            <p class="card-text">Баллы распределяются по активационному бонусу</p>
                                             <a href="/pay-prepare?type=revitalization&@if(!is_null($basket))basket={{ $basket->id }}@endif" class="btn btn-info m-t-10">Оплатить ${{ $all_cost }}</a>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                     </div>
                                     <!-- Card -->
                                 </div>--}}
-                                <div class="col-lg-2 col-md-6  img-responsive">
+                                {{--<div class="col-lg-2 col-md-6  img-responsive">
                                     <!-- Card -->
                                     <div class="card">
                                         <img class="card-img-top img-responsive" src="https://indigo24.com/img/logo.png" alt="Card image cap">
@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                     <!-- Card -->
-                                </div>
+                                </div>--}}
                             </div>
                             <!-- Row -->
                         </div>

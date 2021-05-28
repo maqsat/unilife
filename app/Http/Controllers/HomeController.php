@@ -89,8 +89,15 @@ class HomeController extends Controller
                 ->where('user_programs.user_id',$user->id)
                 ->select(['statuses.*'])
                 ->first();
+
+            if($pv_counter_left < $pv_counter_right) $small_branch_pv = $pv_counter_left;
+            else $small_branch_pv = $pv_counter_right;
+
             $next_status = Status::find($status->order+1);
-            $percentage = $pv_counter_all*100/$next_status->pv;
+            if(!is_null($next_status)){
+                $percentage = $small_branch_pv*100/$next_status->pv;
+            }
+            else  $percentage = 100;
 
             $not_cash_bonuses = DB::table('not_cash_bonuses')->where('user_id', $user->id)->where('status',0)->get();
 

@@ -209,7 +209,8 @@ class UserActivated
                     if(!is_null($left_user) && !is_null($right_user)){
 
                         if(!is_null($next_status)){
-                            $prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
+                            //$prev_statuses_pv = Status::where('order','<=',$next_status->order)->sum('pv');
+                            $prev_statuses_pv = $next_status->pv;
                             if($prev_statuses_pv <= $pv){
                                 $all_count = 0;
                                 $left_user_count  = 0;
@@ -245,7 +246,7 @@ class UserActivated
                                     }*/
                                 }
                                 else{
-                                    $left_user_count = UserProgram::join('users','user_programs.user_id','=','users.id')
+                                    /*$left_user_count = UserProgram::join('users','user_programs.user_id','=','users.id')
                                         ->where('list','like','%,'.$left_user->id.','.$item.',%')
                                         ->where('users.inviter_id',$item)
                                         ->where('user_programs.package_id','>=',1)
@@ -264,18 +265,18 @@ class UserActivated
                                     $right_user_status = UserProgram::where('user_id',$right_user->id)->where('inviter_list','like','%,'.$item.',%')->where('status_id','>=',$item_status->id)->count();
                                     if($right_user_status > 0){
                                         $right_user_count++;
-                                    }
+                                    }*/
                                 }
 
-                                if($left_user_count == 0 or $right_user_count == 0){
+                                /*if($left_user_count == 0 or $right_user_count == 0){
                                     $all_count = 0;
                                 }
                                 else{
                                     $all_count = $left_user_count+$right_user_count;
-                                }
+                                }*/
 
-
-                                if($all_count  >= $next_status->condition && $item_user_program->is_binary == 1){
+                                //if($all_count  >= $next_status->condition && $item_user_program->is_binary == 1){
+                                if($item_user_program->is_binary == 1){
 
                                     Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
                                     $item_user_program = UserProgram::where('user_id',$item)->first();
@@ -319,7 +320,7 @@ class UserActivated
                     $all_count = 0;
                     $left_user_count  = 0;
                     $right_user_count  = 0;
-                    if(!is_null($left_user) && !is_null($right_user)){
+                    /*if(!is_null($left_user) && !is_null($right_user)){
                         $left_user_count = UserProgram::join('users','user_programs.user_id','=','users.id')
                             ->where('list','like','%,'.$left_user->id.','.$item.',%')
                             ->where('users.inviter_id',$item)
@@ -349,10 +350,12 @@ class UserActivated
                     }
                     else{
                         $all_count = 0;
-                    }
+                    }*/
 
-                    if($all_count >= 2 && !is_null($next_status)){//Что то здесь не то, причем то $next_status
 
+
+                    //if($all_count >= 2 && !is_null($next_status)){//Что то здесь не то, причем то $next_status
+                    if($item_user_program->is_binary == 1){
                         /*start set  turnover_bonus  */
                         $credited_pv = Processing::where('status','turnover_bonus')->where('user_id',$item)->sum('pv');
                         $credited_sum = Processing::where('status','turnover_bonus')->where('user_id',$item)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('sum');

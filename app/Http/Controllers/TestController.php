@@ -90,10 +90,9 @@ class TestController extends Controller
 
     public function tester()
     {
-        dd(Carbon::now()->subDay(7));
-        $user  = User::find(2534);
 
-        event(new Activation($user = $user));
+        $prev_statuses_pv = Status::where('order','<=',9)->sum('pv');
+        dd($prev_statuses_pv);
     }
 
     public function tester2()

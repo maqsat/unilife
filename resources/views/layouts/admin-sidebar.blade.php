@@ -81,6 +81,7 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="/overview-money">Обзор</a></li>
                         <li><a href="/status-money">Комиссионные по статусам</a></li>
+                        <li><a href="/status-counts">Разбивка по статусам</a></li>
                     </ul>
                 </li>
                 @endif

@@ -122,6 +122,7 @@ Route::post('user/{id}/add_bonus','UserController@addBonusUser')->middleware("ad
 Route::get('admin/notifications', 'AdminController@notifications')->name('admin_notifications')->middleware("admin");
 Route::get('order', 'ProductController@orders');
 Route::get('overview-money', 'ProcessingController@overview')->name('overview');
+Route::get('status-counts', 'ProcessingController@statusCounts')->name('counts');
 Route::get('status-money', 'ProcessingController@status')->name('status');
 Route::get('admin/reviews', 'AdminController@reviews')->name('admin_reviews')->middleware('admin');
 Route::get('admin/comments', 'AdminController@comments')->name('admin_comments')->middleware('admin');
@@ -155,7 +156,7 @@ Route::get('check_mentor', 'AutoActivationController@checkMentor');
 /*
 ************************ Test Elements ***********************
  */
-Route::get('tester', 'TestController@testerActivation');
+Route::get('tester', 'TestController@tester');
 Route::get('setbots', 'TestController@setBots');
 Route::get('auto-activation', 'TestController@testerActivation');
 

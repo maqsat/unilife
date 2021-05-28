@@ -74,7 +74,7 @@ class ProcessingController extends Controller
             $list = Processing::orderBy('created_at','desc')->paginate(30);
         }
 
-        $in = Processing::whereStatus('in')->sum('sum');
+        $in = Processing::whereStatus('register')->sum('sum');
         $all = Processing::sum('sum');
         $out = Processing::whereStatus('out')->sum('sum');
 
@@ -323,5 +323,10 @@ class ProcessingController extends Controller
 
 
         return redirect()->back()->with('status', 'Запрос успешно отправлен админу!');
+    }
+
+    public function statusCounts()
+    {
+        return view('processing.counts');
     }
 }

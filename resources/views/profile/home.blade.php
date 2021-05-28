@@ -79,10 +79,10 @@
                                                     <h6 class="card-subtitle">За все время</h6> </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-4 align-self-center">
-                                                    <span class="display-6 text-white">{{ $pv_counter_left }}</span>
+                                                <div class="col-7 align-self-center">
+                                                    <span class="display-6 text-white">{{ number_format($pv_counter_left, 0, '', ' ') }}PV</span>
                                                 </div>
-                                                <div class="col-8 align-self-center">
+                                                <div class="col-5 align-self-center">
                                                     <div class="usage chartist-chart" style="height:120px"></div>
                                                 </div>
                                             </div>
@@ -103,10 +103,10 @@
                                                     <h6 class="card-subtitle">За все время</h6> </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-4 align-self-center">
-                                                    <span class="display-6 text-white">{{ $pv_counter_right }}</span>
+                                                <div class="col-7 align-self-center">
+                                                    <span class="display-6 text-white">{{ number_format($pv_counter_right, 0, '', ' ') }}PV</span>
                                                 </div>
-                                                <div class="col-8  text-right">
+                                                <div class="col-5  text-right">
                                                     <div class="spark-count" style="height:120px"></div>
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@
                                         <td>@if(!is_null($package)){{ $package->title }}(${{ $package->cost }})@else Без пакета @endif</td>
                                         <td>{{ $status->title }}</td>
                                         <td>{{Auth::user()->id_number}}</td>
-                                        <td>{{ $pv_counter_all }}  PV</td>
+                                        <td>{{ number_format($pv_counter_all, 0, '', ' ') }}</td>
                                         <td>${{ number_format($balance, 0, '', ' ') }}</td>
                                     </tr>
                                     </tbody>
