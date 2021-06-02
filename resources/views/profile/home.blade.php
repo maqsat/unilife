@@ -139,13 +139,27 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><span class="round"><img src="{{Auth::user()->photo}}" alt="user" width="50" class="home-img" /></span></td>
                                         <td>
-                                            <h6>{{ $user->name }}</h6><small class="text-muted">{{ $user->email }}</small></td>
-                                        <td>@if(!is_null($package)){{ $package->title }}(${{ $package->cost }})@else Без пакета @endif</td>
-                                        <td>{{ $status->title }}</td>
+                                            <span class="round">
+                                                <img src="{{Auth::user()->photo}}" alt="user" width="50" class="home-img" />
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $user->name }}</h6>
+                                            <small class="text-muted">{{ $user->email }}</small><br>
+                                            <small class="text-muted">{{ $user->number }}</small><br>
+                                            <small class="text-muted">{{ $user->created_at }}</small>
+                                        </td>
+                                        <td>
+                                            @if(!is_null($package)){{ $package->title }}(${{ $package->cost }})@else Без пакета @endif<br>
+                                                <small class="text-muted">Наставник: @if(!is_null(\App\User::find($user->sponsor_id))){{ \App\User::find($user->sponsor_id)->name }}<br>{{ \App\User::find($user->sponsor_id)->id_number }}@endif</small>
+                                        </td>
+                                        <td>
+                                            {{ $status->title }}<br>
+                                            <small class="text-muted">Cпонсор: @if(!is_null(\App\User::find($user->inviter_id))){{ \App\User::find($user->inviter_id)->name }}<br>{{ \App\User::find($user->inviter_id)->id_number }}@endif</small>
+                                        </td>
                                         <td>{{Auth::user()->id_number}}</td>
-                                        <td>{{ number_format($pv_counter_all, 0, '', ' ') }}</td>
+                                        <td>{{ number_format($pv_counter_all, 0, '', ' ') }} PV</td>
                                         <td>${{ number_format($balance, 0, '', ' ') }}</td>
                                     </tr>
                                     </tbody>
