@@ -76,11 +76,13 @@
 
                                         <tr>
                                             <td>{{ $item->id }}</td>
-                                            <td>{{ $item->name }}</td>
+                                            <td>
+                                                {{ $item->name }}<br>
+                                                <b>ID</b>: {{ $item->id_number  }}
+                                            </td>
                                             <td>
                                                 <b>Наставник</b>: {{ is_null($sponsor) ? '' : $sponsor->name }}<br>
-                                                <b>Спонсор</b>: {{ is_null($inviter) ? '' : $inviter->name }}<br>
-                                                <b>ID</b>: {{ $item->id_number  }}
+                                                <b>Спонсор</b>: {{ is_null($inviter) ? '' : $inviter->name }}
                                             </td>
                                             @if(Gate::allows('admin_column_pv'))
                                             <td>
