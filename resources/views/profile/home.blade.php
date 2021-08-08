@@ -7,6 +7,13 @@
         <!-- ============================================================== -->
         <div class="container-fluid">
 
+                @if(!is_null($move_status))
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        <h3 class="text-success"><i class="fa fa-check-circle"></i> Поздравляем, У вас новый статус <b>{{ \App\Models\Status::whereId($move_status->status_id)->first()->title }}</b></h3>
+                    </div>
+                @endif
+
                 @foreach($not_cash_bonuses as $item)
                     @if($item->type == 'travel_bonus')
                         <div class="alert alert-success">

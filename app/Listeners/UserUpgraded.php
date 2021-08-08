@@ -205,7 +205,7 @@ class UserUpgraded
                             }
 
 
-                            if($all_count  >= $next_status->condition && $item_user_program->is_binary == 1){
+                            if(false){//$all_count  >= $next_status->condition && $item_user_program->is_binary == 1
 
                                 Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
                                 $item_user_program = UserProgram::where('user_id',$item)->first();

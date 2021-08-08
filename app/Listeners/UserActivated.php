@@ -288,20 +288,124 @@ class UserActivated
                                 }*/
 
                                 //if($all_count  >= $next_status->condition && $item_user_program->is_binary == 1){
-                                if($item_user_program->is_binary == 1){
+                                if($item_user_program->is_binary == 1 && $item_user_program->package_id != 1){
 
-                                    Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
-                                    $item_user_program = UserProgram::where('user_id',$item)->first();
-                                    $item_status = Status::find($item_user_program->status_id);
+                                    if($next_status->id == 4){
 
-                                    Notification::create([
-                                        'user_id'   => $item,
-                                        'type'      => 'move_status',
-                                        'status_id' => $item_user_program->status_id
-                                    ]);
+                                        if($item_user_program->package_id >= 3){
+                                            Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
+                                            $item_user_program = UserProgram::where('user_id',$item)->first();
+                                            $item_status = Status::find($item_user_program->status_id);
+                                            Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
+
+                                            Notification::create([
+                                                'user_id'   => $item,
+                                                'type'      => 'move_status',
+                                                'status_id' => $item_user_program->status_id
+                                            ]);
+                                        }
+
+                                    }
+                                    elseif($next_status->id == 5){
+                                        if($item_user_program->package_id >= 4){
+                                            Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
+                                            $item_user_program = UserProgram::where('user_id',$item)->first();
+                                            $item_status = Status::find($item_user_program->status_id);
+                                            Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
+
+                                            Notification::create([
+                                                'user_id'   => $item,
+                                                'type'      => 'move_status',
+                                                'status_id' => $item_user_program->status_id
+                                            ]);
+                                        }
+                                    }
+                                    elseif($next_status->id > 5){
+
+                                        if($next_status->id == 9){
+
+                                            $status_id_7 =  UserProgram::join('users','user_programs.user_id','=','users.id')
+                                                ->where('users.inviter_id',$this_user->inviter_id)
+                                                ->where('users.status',1)
+                                                ->where('user_programs.status_id',7)
+                                                ->count();
+
+                                            $status_id_8 =  UserProgram::join('users','user_programs.user_id','=','users.id')
+                                                ->where('users.inviter_id',$this_user->inviter_id)
+                                                ->where('users.status',1)
+                                                ->where('user_programs.status_id',8)
+                                                ->count();
+
+                                            if($status_id_7 == 2 && $status_id_8 == 1){
+                                                Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
+                                                $item_user_program = UserProgram::where('user_id',$item)->first();
+                                                $item_status = Status::find($item_user_program->status_id);
+                                                Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
+
+                                                Notification::create([
+                                                    'user_id'   => $item,
+                                                    'type'      => 'move_status',
+                                                    'status_id' => $item_user_program->status_id
+                                                ]);
+                                            }
+
+                                        }
+                                        elseif($next_status->id == 10){
+                                            $status_id_9 =  UserProgram::join('users','user_programs.user_id','=','users.id')
+                                                ->where('users.inviter_id',$this_user->inviter_id)
+                                                ->where('users.status',1)
+                                                ->where('user_programs.status_id',9)
+                                                ->count();
+
+                                            $status_id_8 =  UserProgram::join('users','user_programs.user_id','=','users.id')
+                                                ->where('users.inviter_id',$this_user->inviter_id)
+                                                ->where('users.status',1)
+                                                ->where('user_programs.status_id',8)
+                                                ->count();
+
+                                            if($status_id_9 == 1 && $status_id_8 == 2){
+                                                Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
+                                                $item_user_program = UserProgram::where('user_id',$item)->first();
+                                                $item_status = Status::find($item_user_program->status_id);
+                                                Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
+
+                                                Notification::create([
+                                                    'user_id'   => $item,
+                                                    'type'      => 'move_status',
+                                                    'status_id' => $item_user_program->status_id
+                                                ]);
+                                            }
+                                        }
+                                        else{
+                                            if($item_user_program->package_id == 4)
+                                                Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
+                                            $item_user_program = UserProgram::where('user_id',$item)->first();
+                                            $item_status = Status::find($item_user_program->status_id);
+                                            Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
+
+                                            Notification::create([
+                                                'user_id'   => $item,
+                                                'type'      => 'move_status',
+                                                'status_id' => $item_user_program->status_id
+                                            ]);
+                                        }
+
+                                    }
+                                    else{
+                                        Hierarchy::moveNextStatus($item,$next_status->id,$item_user_program->program_id);
+                                        $item_user_program = UserProgram::where('user_id',$item)->first();
+                                        $item_status = Status::find($item_user_program->status_id);
+                                        Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
+
+                                        Notification::create([
+                                            'user_id'   => $item,
+                                            'type'      => 'move_status',
+                                            'status_id' => $item_user_program->status_id
+                                        ]);
+                                    }
+
 
                                     if($item_user_program->package_id != 1){
-                                        //Balance::changeBalance($item,$item_status->status_bonus,'status_bonus',$id,$program->id,$item_user_program->package_id,$item_status->id);
 
                                        /* if ($next_status->status_no_cash_bonus){
                                             DB::table('not_cash_bonuses')->insert([
@@ -367,7 +471,7 @@ class UserActivated
 
 
                     //if($all_count >= 2 && !is_null($next_status)){//Что то здесь не то, причем то $next_status
-                    if($item_user_program->is_binary == 1){
+                    if($item_user_program->is_binary == 1 && $item_user_program->package_id != 1){
                         /*start set  turnover_bonus  */
                         $credited_pv = Processing::where('status','turnover_bonus')->where('user_id',$item)->sum('pv');
                         $credited_sum = Processing::where('status','turnover_bonus')->where('user_id',$item)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('sum');
@@ -408,10 +512,11 @@ class UserActivated
 
                                     if(true){//!is_null($check_user_processing)
                                         $inviter_user_program = UserProgram::where('user_id',$inviter_item)->first();
-                                        if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1 && $inviter_user_program->package_id != 2 &&  $inviter_user_program->is_binary == 1){
+                                        if(!is_null($inviter_user_program) && $inviter_user_program->package_id != 1 && $inviter_user_program->is_binary == 1){
                                             $list_inviter_status = Status::find($inviter_user_program->status_id);
                                             if($list_inviter_status->depth_line >= $inviter_key+1){
-                                                $matching_bonus_persantage = 10;
+                                                $matching_bonus_persantage = 15;
+                                                if($inviter_key == 1) $matching_bonus_persantage = 10;
                                                 if($inviter_key == 2) $matching_bonus_persantage = 5;
                                                 Balance::changeBalance($inviter_item,$sum*$matching_bonus_persantage/100,'matching_bonus',$item_user_program->user_id,$program->id,$package->id,$list_inviter_status->id,$to_enrollment_pv,0,$inviter_key+1);
                                             }
@@ -438,7 +543,13 @@ class UserActivated
             if(!is_null($inviter_program) && $inviter_program->package_id != 0){
                 $inviter_status = Status::find($inviter_program->status_id);
                 $inviter_package = Package::where('id',$inviter_program->package_id)->first();
-                Balance::changeBalance($inviter->id,$package->cost*$inviter_package->invite_bonus/100,'invite_bonus',$id,$program->id,$package->id,$inviter_status->id,$package->pv);
+
+                if($inviter_package->id == 4){
+                    Balance::changeBalance($inviter->id,$package->vip_invite_bonus,'invite_bonus',$id,$program->id,$package->id,$inviter_status->id,$package->pv);
+                }
+                else {
+                    Balance::changeBalance($inviter->id,$package->invite_bonus,'invite_bonus',$id,$program->id,$package->id,$inviter_status->id,$package->pv);
+                }
             }
             /*end set  invite_bonus  */
         }

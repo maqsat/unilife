@@ -101,6 +101,12 @@ class HomeController extends Controller
 
             $not_cash_bonuses = DB::table('not_cash_bonuses')->where('user_id', $user->id)->where('status',0)->get();
 
+            $move_status = Notification::where('user_id',$user->id)->where('type','move_status')
+                ->whereBetween('created_at', [Carbon::now()->subDays(7), Carbon::now()])
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+
             /*$date = new \DateTime();
             $date->setDate(2020, 5, 31);
             $dt = Carbon::create($date->format('Y'), $date->format('m'), $date->format('d'), 1, 0, 0, 'Asia/Almaty');
@@ -139,7 +145,25 @@ class HomeController extends Controller
                 $revitalization_date = Carbon::now()->addMonth(1)->day($registered_day)->format('M d, Y')." 00:00:00";
             }
 
-            return view('profile.home', compact('user', 'invite_list', 'pv_counter_all', 'balance', 'out_balance', 'status', 'list', 'package','pv_counter_left','pv_counter_right','not_cash_bonuses','quickstart_date','revitalization_date','display_day','percentage','next_status'));
+            return view('profile.home', compact(
+                'user',
+                'invite_list',
+                'pv_counter_all',
+                'balance',
+                'out_balance',
+                'status',
+                'list',
+                'package',
+                'pv_counter_left',
+                'pv_counter_right',
+                'not_cash_bonuses',
+                'quickstart_date',
+                'revitalization_date',
+                'display_day',
+                'percentage',
+                'next_status',
+                'move_status'
+            ));
         }
         else{
             $orders = Order::where('user_id',Auth::user()->id)->where('type','register')->where('payment','manual')->orderBy('id','desc')->first();
